@@ -70,7 +70,10 @@ import android.widget.TextView;
         	LayoutInflater inflater = this.getLayoutInflater();
         	final View view = (View) inflater.inflate(R.layout.dialog_add, null);
         	//dialog_add_layout =  inflater.inflate(R.layout.dialog_add,null);
-        	//dialog_add_time.setText(new SimpleDateFormat("yyyyMMddHHmm").format(new Date()));
+        	EditText dialog_add_time=(EditText)view.findViewById(R.id.dialog_add_time);
+        	dialog_add_time.setText(new SimpleDateFormat("yyyyMMddHHmm").format(new Date()));
+        	//EditText dialog_add_price=(EditText)view.findViewById(R.id.dialog_add_price);
+        	//dialog_add_price.setFocusable(true);
         	AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
         	builder.setTitle(R.string.dialog_title);
         	builder.setView(view);
@@ -78,8 +81,8 @@ import android.widget.TextView;
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					//Todo:insertdata
-					EditText dialog_add_price=(EditText)view.findViewById(R.id.dialog_add_price);
 					EditText dialog_add_time=(EditText)view.findViewById(R.id.dialog_add_time);
+					EditText dialog_add_price=(EditText)view.findViewById(R.id.dialog_add_price);
 		        	String time=dialog_add_time.getText().toString();
 		        	String price = dialog_add_price.getText().toString();
 					insertitems(time,price,"","");
@@ -117,7 +120,7 @@ import android.widget.TextView;
     	while(cursor.moveToNext()){
     		sum += cursor.getFloat(priceColumnIndex);
     	}
-    	sumlabel.setText(new DecimalFormat("#.00").format(sum));
+    	sumlabel.setText(new DecimalFormat("0.00").format(sum));
     }
 }
 

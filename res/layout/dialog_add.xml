@@ -17,6 +17,7 @@
         android:hint="@string/dialog_add_price_hint">
         <requestFocus />
     </EditText>
+    
     <EditText
         android:id="@+id/dialog_add_time"
         android:layout_width="match_parent"
@@ -28,7 +29,6 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
         android:hint="@string/dialog_add_time_hint">
-        <requestFocus />
     </EditText>
     
 
