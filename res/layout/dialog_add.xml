@@ -2,10 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:id="@+id/dialog_add">
 
     <EditText
-        android:id="@+id/dialog_edit_add"
+        android:id="@+id/dialog_add_price"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -13,8 +14,21 @@
  		android:layout_marginTop="16dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:hint="@string/dialog_add_price_hint">
+        <requestFocus />
+    </EditText>
+    <EditText
+        android:id="@+id/dialog_add_time"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:inputType="number" 
+ 		android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
-        android:hint="@string/dialog_edit_add_hint">
+        android:hint="@string/dialog_add_time_hint">
         <requestFocus />
     </EditText>
 
