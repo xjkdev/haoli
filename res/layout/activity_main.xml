@@ -8,13 +8,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.haoli.haoli.MainActivity" >
 
-    <ListView
-        android:id="@+id/testview"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/sumlabel"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="68dp" >
-    </ListView>
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="45dp"
+        android:text="TextView" />
 
 </RelativeLayout>

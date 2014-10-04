@@ -31,5 +31,6 @@
         android:hint="@string/dialog_add_time_hint">
         <requestFocus />
     </EditText>
+    
 
 </LinearLayout>

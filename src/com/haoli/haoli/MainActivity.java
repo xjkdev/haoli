@@ -1,5 +1,6 @@
 package com.haoli.haoli;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -9,21 +10,19 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 //import android.content.Intent;
 //import android.content.Context;
-//import android.database.Cursor;
+import android.database.Cursor;
 //import android.database.sqlite.SQLiteDatabase;
 //import android.database.sqlite.SQLiteOpenHelper;
 //import android.database.sqlite.SQLiteDatabase.CursorFactory;
 //import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
-//import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-//import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.View;
 import android.widget.EditText;
-//import android.widget.Toast;
-import android.widget.ListView;
+import android.widget.TextView;
+//import android.widget.ListView;
 
 
 
@@ -31,10 +30,11 @@ import android.widget.ListView;
 @SuppressLint("SimpleDateFormat") public class MainActivity extends Activity {
 	private EditText dialog_add_price;
 	private EditText dialog_add_time;
-	private ListView listview;
+	//private ListView listview;
 	//private SQLiteDatabase book_db;
 	private View dialog_add_layout;
 	private BookDatabaseHelper helper;
+	private TextView sumlabel;
 	
 	
     @Override
@@ -47,7 +47,8 @@ import android.widget.ListView;
     	dialog_add_time=(EditText)findViewById(R.id.dialog_add_time);
         //open Database
     	helper = new BookDatabaseHelper(getApplicationContext(),"Book",1);
-    	//listview = (ListView)findViewById(R.id.testview);
+    	sumlabel = (TextView)findViewById(R.id.sumlabel);
+    	
         //book_db = SQLiteDatabase.openOrCreateDatabase(this.getFilesDir().toString()+"/book.db",null);
     }
 
@@ -88,17 +89,18 @@ import android.widget.ListView;
 				public void onClick(DialogInterface dialog, int which) {
 					//Todo:insertdata	
 					insertitems(dialog_add_time.getText().toString(),dialog_add_price.getText().toString(),"","");
+					showsum(helper.getReadableDatabase().rawQuery("select * from book_table", null));
 				}
 			})
         	.setNegativeButton(R.string.cancel,null)
         	.show();
+        	
         	return true;
         case R.id.action_settings:  
         	return true;
         default:
         	return super.onOptionsItemSelected(item);	
         }
-        //return super.onOptionsItemSelected(item);
     }
     
     private void insertitems(String time,String price,String purpose, String way) {
@@ -106,6 +108,16 @@ import android.widget.ListView;
 		helper.getReadableDatabase().execSQL("insert into news_table values(null, ?, ?, ?, ?)", 
 				new String[]{time, price,purpose,way});
 	}
+    
+    private void showsum(Cursor cursor){
+    	double sum =0.0;
+    	cursor.moveToFirst();
+    	int priceColumnIndex = cursor.getColumnIndex("price");
+    	while(cursor.moveToNext()){
+    		sum += cursor.getFloat(priceColumnIndex);
+    	}
+    	sumlabel.setText(new DecimalFormat("#.00").format(sum));
+    }
 }
 
 
