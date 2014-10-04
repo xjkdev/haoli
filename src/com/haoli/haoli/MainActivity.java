@@ -16,23 +16,20 @@ import android.database.Cursor;
 //import android.database.sqlite.SQLiteDatabase.CursorFactory;
 //import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-//import android.widget.ListView;
 
 
 
 
 @SuppressLint("SimpleDateFormat") public class MainActivity extends Activity {
-	private EditText dialog_add_price;
-	private EditText dialog_add_time;
-	//private ListView listview;
-	//private SQLiteDatabase book_db;
-	private View dialog_add_layout;
+	
+	//private View dialog_add_layout;
 	private BookDatabaseHelper helper;
 	private TextView sumlabel;
 	
@@ -41,20 +38,12 @@ import android.widget.TextView;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //LayoutInflater layoutinflater = getLayoutInflater();      
-        dialog_add_layout = getLayoutInflater().inflate(R.layout.dialog_add,(ViewGroup)findViewById(R.id.dialog_add));
-    	dialog_add_price=(EditText)findViewById(R.id.dialog_add_price);
-    	dialog_add_time=(EditText)findViewById(R.id.dialog_add_time);
-        //open Database
+         //open Database
     	helper = new BookDatabaseHelper(getApplicationContext(),"Book",1);
     	sumlabel = (TextView)findViewById(R.id.sumlabel);
-    	
-        //book_db = SQLiteDatabase.openOrCreateDatabase(this.getFilesDir().toString()+"/book.db",null);
+    	showsum(helper.getReadableDatabase().rawQuery("select * from book_table", null));
     }
 
-    //private void showinlistview(Cursor cursor){
-    //	listview.set
-    //}
     
     @Override
     protected void onDestroy() {
@@ -78,25 +67,38 @@ import android.widget.TextView;
 
         switch (item.getItemId()) {
         case R.id.action_add:
-        	  	
-        	dialog_add_time.setText(new SimpleDateFormat("yyyyMMddHHmm").format(new Date()));
-        	new AlertDialog.Builder(this)
-        	.setTitle(R.string.dialog_title)
-        	.setView(dialog_add_layout)
-        	.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
-				
+        	LayoutInflater inflater = this.getLayoutInflater();
+        	final View view = (View) inflater.inflate(R.layout.dialog_add, null);
+        	//dialog_add_layout =  inflater.inflate(R.layout.dialog_add,null);
+        	//dialog_add_time.setText(new SimpleDateFormat("yyyyMMddHHmm").format(new Date()));
+        	AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        	builder.setTitle(R.string.dialog_title);
+        	builder.setView(view);
+        	builder.setPositiveButton(R.string.okay, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					//Todo:insertdata	
-					insertitems(dialog_add_time.getText().toString(),dialog_add_price.getText().toString(),"","");
+					//Todo:insertdata
+					EditText dialog_add_price=(EditText)view.findViewById(R.id.dialog_add_price);
+					EditText dialog_add_time=(EditText)view.findViewById(R.id.dialog_add_time);
+		        	String time=dialog_add_time.getText().toString();
+		        	String price = dialog_add_price.getText().toString();
+					insertitems(time,price,"","");
+		        	//insertitems("12","12","","");
 					showsum(helper.getReadableDatabase().rawQuery("select * from book_table", null));
 				}
-			})
-        	.setNegativeButton(R.string.cancel,null)
-        	.show();
+			});
+        	builder.setNegativeButton(R.string.cancel,null);
+        	AlertDialog alert = builder.create();
+        	alert.show();
         	
         	return true;
         case R.id.action_settings:  
+        	helper.getReadableDatabase().delete("book_table", null,null);
+        	insertitems("0","0","","");
+        	showsum(helper.getReadableDatabase().rawQuery("select * from book_table", null));
+        	return true;
+        case R.id.action_refresh:
+        	showsum(helper.getReadableDatabase().rawQuery("select * from book_table", null));
         	return true;
         default:
         	return super.onOptionsItemSelected(item);	
@@ -104,8 +106,7 @@ import android.widget.TextView;
     }
     
     private void insertitems(String time,String price,String purpose, String way) {
-		
-		helper.getReadableDatabase().execSQL("insert into news_table values(null, ?, ?, ?, ?)", 
+		helper.getReadableDatabase().execSQL("insert into book_table values(null, ?, ?, ?, ?)", 
 				new String[]{time, price,purpose,way});
 	}
     
