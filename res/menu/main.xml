@@ -20,7 +20,7 @@
         android:id="@+id/action_refresh"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="refresh"
+        android:title="@string/action_refresh"
     />
 
 	

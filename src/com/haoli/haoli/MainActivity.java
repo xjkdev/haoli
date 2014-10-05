@@ -80,7 +80,6 @@ import android.widget.TextView;
 		        	String purpose = dialog_add_purpose.getText().toString();
 		        	String way = dialog_add_way.getText().toString();
 					insertitems(time,price,purpose,way);
-		        	//insertitems("12","12","","");
 					showsum(book_db.getReadableDatabase().rawQuery("select * from book_table", null));
 				}
 			});
@@ -107,7 +106,7 @@ import android.widget.TextView;
 				new String[]{time, price,purpose,way});
 	}
     
-    private void showsum(Cursor cursor){
+    private double showsum(Cursor cursor){
     	double sum =0.0;
     	cursor.moveToFirst();
     	int priceColumnIndex = cursor.getColumnIndex("price");
@@ -115,6 +114,7 @@ import android.widget.TextView;
     		sum += cursor.getFloat(priceColumnIndex);
     	}
     	sumlabel.setText(new DecimalFormat("0.00").format(sum));
+    	return sum;
     }
 }
 

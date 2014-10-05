@@ -10,7 +10,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:inputType="number" 
- 		android:layout_marginTop="4dp"
+ 		android:layout_marginTop="16dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
@@ -24,7 +24,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:inputType="numberDecimal" 
- 		android:layout_marginTop="16dp"
+ 		android:layout_marginTop="4dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
@@ -42,6 +42,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
+        android:singleLine="true"
         android:imeOptions="actionNext"
         android:hint="@string/dialog_add_purpose_hint"
     />
@@ -55,6 +56,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
+        android:singleLine="true"
         android:imeOptions="actionDone"
         android:hint="@string/dialog_add_way_hint"
     />
