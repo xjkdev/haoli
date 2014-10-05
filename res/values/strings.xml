@@ -10,5 +10,5 @@
 	<string name="dialog_add_price_hint">Price</string>
 	<string name="dialog_add_time_hint">Time</string>
 	<string name="dialog_add_purpose_hint">Purpose</string>
-	<string name="dialog_add_way_hint">way</string>
+	<string name="dialog_add_way_hint">Way</string>
 </resources>

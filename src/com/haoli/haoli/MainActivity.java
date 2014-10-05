@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 @SuppressLint("SimpleDateFormat") public class MainActivity extends Activity {
 	
+	//private View dialog_add_layout;
 	private BookDatabaseHelper book_db;
 	private TextView sumlabel;
 	
@@ -31,7 +32,7 @@ import android.widget.TextView;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
          //open Database
-    	book_db = new BookDatabaseHelper(getApplicationContext(),"Book",1);
+        book_db = new BookDatabaseHelper(getApplicationContext(),"Book",1);
     	sumlabel = (TextView)findViewById(R.id.sumlabel);
     	showsum(book_db.getReadableDatabase().rawQuery("select * from book_table", null));
     }
@@ -40,8 +41,8 @@ import android.widget.TextView;
     @Override
     protected void onDestroy() {
     	super.onDestroy();
-    	//if(book_db != null && book_db.isOpen())
-    	//	book_db.close();
+    	if(book_db != null)
+    		book_db.close();
     }
 
     @Override
@@ -70,15 +71,16 @@ import android.widget.TextView;
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					//insert data to database
-					EditText dialog_add_time=(EditText)view.findViewById(R.id.dialog_add_time);
-					EditText dialog_add_price=(EditText)view.findViewById(R.id.dialog_add_price);
-					EditText dialog_add_purpose = (EditText) view.findViewById(R.id.dialog_add_purpose);
-					EditText dialog_add_way = (EditText) view.findViewById(R.id.dialog_add_way);
-		        	String time=dialog_add_time.getText().toString();
+					EditText dialog_add_time = (EditText)view.findViewById(R.id.dialog_add_time);
+					EditText dialog_add_price = (EditText)view.findViewById(R.id.dialog_add_price);
+					EditText dialog_add_purpose = (EditText)view.findViewById(R.id.dialog_add_purpose);
+					EditText dialog_add_way = (EditText)view.findViewById(R.id.dialog_add_way);
+		        	String time = dialog_add_time.getText().toString();
 		        	String price = dialog_add_price.getText().toString();
-		        	String purpose =dialog_add_purpose.getText().toString();
+		        	String purpose = dialog_add_purpose.getText().toString();
 		        	String way = dialog_add_way.getText().toString();
 					insertitems(time,price,purpose,way);
+		        	//insertitems("12","12","","");
 					showsum(book_db.getReadableDatabase().rawQuery("select * from book_table", null));
 				}
 			});
