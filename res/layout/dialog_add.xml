@@ -27,9 +27,30 @@
  		android:layout_marginTop="4dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:hint="@string/dialog_add_time_hint"
+    />
+
+    <EditText
+        android:id="@+id/dialog_add_purpose"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" 
+        android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginBottom="4dp"
+        android:hint="@string/dialog_add_purpose_hint"/>
+
+    <EditText
+        android:id="@+id/dialog_add_way"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+          android:layout_marginTop="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
-        android:hint="@string/dialog_add_time_hint">
-    </EditText>
-    
+        android:hint="@string/dialog_add_way_hint" />
 
 </LinearLayout>

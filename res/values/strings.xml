@@ -9,6 +9,6 @@
 	<string name="dialog_title">Add</string>
 	<string name="dialog_add_price_hint">Price</string>
 	<string name="dialog_add_time_hint">Time</string>
-	<string name="okay">Okay</string>
-	<string name="cancel">Cancel</string>
+	<string name="dialog_add_purpose_hint">Purpose</string>
+	<string name="dialog_add_way_hint">way</string>
 </resources>
