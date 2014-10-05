@@ -2,7 +2,10 @@ package com.haoli.haoli;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -15,6 +18,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 
@@ -25,7 +30,7 @@ import android.widget.TextView;
 	//private View dialog_add_layout;
 	private BookDatabaseHelper book_db;
 	private TextView sumlabel;
-	
+	private ListView booklist;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +39,11 @@ import android.widget.TextView;
          //open Database
         book_db = new BookDatabaseHelper(getApplicationContext(),"Book",1);
     	sumlabel = (TextView)findViewById(R.id.sumlabel);
-    	showsum(book_db.getReadableDatabase().rawQuery("select * from book_table", null));
+    	booklist = (ListView)findViewById(R.id.booklist);
+    	Cursor query = book_db.getReadableDatabase().rawQuery("select * from book_table", null);
+    	updatelist(query);
+    	showsum(query);
+    	query.close();
     }
 
     
@@ -79,8 +88,13 @@ import android.widget.TextView;
 		        	String price = dialog_add_price.getText().toString();
 		        	String purpose = dialog_add_purpose.getText().toString();
 		        	String way = dialog_add_way.getText().toString();
+		        	
 					insertitems(time,price,purpose,way);
-					showsum(book_db.getReadableDatabase().rawQuery("select * from book_table", null));
+					
+					Cursor query = book_db.getReadableDatabase().rawQuery("select * from book_table", null);
+			    	updatelist(query);
+			    	showsum(query);
+			    	query.close();
 				}
 			});
         	builder.setNegativeButton(android.R.string.cancel,null);
@@ -90,11 +104,17 @@ import android.widget.TextView;
         	return true;
         case R.id.action_settings:  
         	book_db.getReadableDatabase().delete("book_table", null,null);
-        	insertitems("0","0","","");
-        	showsum(book_db.getReadableDatabase().rawQuery("select * from book_table", null));
+        	//insertitems("0","0","","");
+        	Cursor query = book_db.getReadableDatabase().rawQuery("select * from book_table", null);
+	    	updatelist(query);
+	    	showsum(query);
+	    	query.close();
         	return true;
         case R.id.action_refresh:
-        	showsum(book_db.getReadableDatabase().rawQuery("select * from book_table", null));
+        	Cursor query2 = book_db.getReadableDatabase().rawQuery("select * from book_table", null);
+	    	updatelist(query2);
+	    	showsum(query2);
+	    	query2.close();
         	return true;
         default:
         	return super.onOptionsItemSelected(item);	
@@ -108,13 +128,34 @@ import android.widget.TextView;
     
     private double showsum(Cursor cursor){
     	double sum =0.0;
-    	cursor.moveToFirst();
     	int priceColumnIndex = cursor.getColumnIndex("price");
+    	if(cursor.moveToFirst())
+    		sum += cursor.getFloat(priceColumnIndex);
     	while(cursor.moveToNext()){
     		sum += cursor.getFloat(priceColumnIndex);
-    	}
+    	}    	
     	sumlabel.setText(new DecimalFormat("0.00").format(sum));
     	return sum;
+    }
+    
+    private void updatelist(Cursor cursor){
+    	int priceColumnIndex = cursor.getColumnIndex("price");
+    	int timeColumnIndex = cursor.getColumnIndex("time");
+    	int purposeColumnIndex = cursor.getColumnIndex("purpose");
+    	//int wayColumnIndex = cursor.getColumnIndex("purpose");
+    	ArrayList<Map<String,Object>> mitems = new ArrayList<Map<String,Object>>();
+    	while(cursor.moveToNext()){
+    		Map<String,Object> item = new HashMap<String,Object>();
+    		item.put("items_way_img", R.drawable.ic_launcher);//todo:pic
+    		item.put("items_time",cursor.getLong(timeColumnIndex));
+    		item.put("items_purpose",cursor.getString(purposeColumnIndex));
+    		item.put("items_price", new DecimalFormat("0.00").format(cursor.getFloat(priceColumnIndex)));
+    		mitems.add(item);
+    	}
+    	SimpleAdapter adapter = new SimpleAdapter(this,mitems,R.layout.items,
+    			new String[]{"items_way_img","items_time","items_purpose","items_price"},
+    			new int[]{R.id.items_way_img,R.id.items_time,R.id.items_purpose,R.id.items_price});
+    	booklist.setAdapter(adapter);
     }
 }
 

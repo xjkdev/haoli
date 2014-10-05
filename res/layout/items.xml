@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    
+    <ImageView
+        android:id="@+id/items_way_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:contentDescription="@string/desc"
+        android:src="@drawable/ic_launcher"/>
+    
+    <TextView
+        android:id="@+id/items_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/items_way_img"
+        android:text="@string/items_price"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/items_purpose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/items_price"
+        android:layout_toRightOf="@+id/items_way_img"
+        android:text="@string/items_purpose" />
+
+    <TextView
+        android:id="@+id/items_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/items_time" />
+
+</RelativeLayout>

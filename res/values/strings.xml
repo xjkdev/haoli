@@ -12,4 +12,8 @@
 	<string name="dialog_add_purpose_hint">Purpose</string>
 	<string name="dialog_add_way_hint">Way</string>
 	<string name="action_refresh">Refresh</string>
+	<string name="desc">desc</string>
+	<string name="items_time">time</string>
+	<string name="items_purpose">purpose</string>
+	<string name="items_price">price</string>
 </resources>
