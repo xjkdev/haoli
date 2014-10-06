@@ -61,28 +61,22 @@ public final class R {
     }
     public static final class string {
         public static final int action_add=0x7f050003;
-        public static final int action_refresh=0x7f05000a;
+        public static final int action_refresh=0x7f050004;
         public static final int action_settings=0x7f050002;
-        public static final int alipay=0x7f050015;
+        public static final int alipay=0x7f05000f;
         public static final int app_name=0x7f050000;
-        public static final int borrow=0x7f050016;
-        public static final int card=0x7f050014;
-        public static final int cash=0x7f050013;
-        public static final int desc=0x7f05000b;
-        public static final int dialog_add_price_hint=0x7f050006;
-        public static final int dialog_add_purpose_hint=0x7f050008;
-        public static final int dialog_add_time_hint=0x7f050007;
-        public static final int dialog_add_way_hint=0x7f050009;
-        public static final int dialog_message=0x7f050004;
-        public static final int dialog_title=0x7f050005;
+        public static final int borrow=0x7f050010;
+        public static final int card=0x7f05000e;
+        public static final int cash=0x7f05000d;
+        public static final int desc=0x7f050005;
         public static final int hello_world=0x7f050001;
-        public static final int items_price=0x7f05000e;
-        public static final int items_purpose=0x7f05000d;
-        public static final int items_time=0x7f05000c;
-        public static final int price=0x7f050010;
-        public static final int purpose=0x7f050011;
-        public static final int time=0x7f05000f;
-        public static final int way=0x7f050012;
+        public static final int items_price=0x7f050008;
+        public static final int items_purpose=0x7f050007;
+        public static final int items_time=0x7f050006;
+        public static final int price=0x7f05000a;
+        public static final int purpose=0x7f05000b;
+        public static final int time=0x7f050009;
+        public static final int way=0x7f05000c;
     }
     public static final class style {
         /** 

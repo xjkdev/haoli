@@ -93,11 +93,10 @@ import android.widget.Toast;
     	if(requestCode != 1)
     		return;
     	if(resultCode == RESULT_CANCELED) {
-    		Toast.makeText(this, "didn't recive", Toast.LENGTH_SHORT).show();
     		return;
     	}
     	else if(resultCode == RESULT_OK) {
-    		Toast.makeText(this, "recive", Toast.LENGTH_SHORT).show();
+    		Toast.makeText(this, data.getStringExtra("way"), Toast.LENGTH_SHORT).show();
     		insertitems(data.getStringExtra("time"),data.getStringExtra("price"),data.getStringExtra("purpose"),data.getStringExtra("way"));
     		Cursor query = book_db.getReadableDatabase().rawQuery("select * from book_table", null);
 	    	updatelist(query);
