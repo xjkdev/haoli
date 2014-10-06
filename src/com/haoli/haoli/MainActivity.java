@@ -11,6 +11,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,7 +32,7 @@ import android.widget.TextView;
 	private BookDatabaseHelper book_db;
 	private TextView sumlabel;
 	private ListView booklist;
-	
+	final int MODE_NEW = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +102,7 @@ import android.widget.TextView;
         	AlertDialog alert = builder.create();
         	alert.show();
         	
+        	
         	return true;
         case R.id.action_settings:  
         	book_db.getReadableDatabase().delete("book_table", null,null);
@@ -111,14 +113,24 @@ import android.widget.TextView;
 	    	query.close();
         	return true;
         case R.id.action_refresh:
-        	Cursor query2 = book_db.getReadableDatabase().rawQuery("select * from book_table", null);
-	    	updatelist(query2);
-	    	showsum(query2);
-	    	query2.close();
+        	Intent intent = new Intent();
+        	intent.setClass(MainActivity.this,EditActivity.class);
+        	intent.putExtra("mode", MODE_NEW);
+        	//startActivity(intent);
+        	startActivityForResult(intent,1);
         	return true;
         default:
         	return super.onOptionsItemSelected(item);	
         }
+    }
+    
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    	super.onActivityResult(requestCode, resultCode, data);
+    	if(requestCode == RESULT_CANCELED) {
+    		return;
+    	}
+    	//TODO: deal with Results
     }
     
     private void insertitems(String time,String price,String purpose, String way) {
@@ -146,7 +158,7 @@ import android.widget.TextView;
     	ArrayList<Map<String,Object>> mitems = new ArrayList<Map<String,Object>>();
     	while(cursor.moveToNext()){
     		Map<String,Object> item = new HashMap<String,Object>();
-    		item.put("items_way_img", R.drawable.ic_launcher);//todo:pic
+    		item.put("items_way_img", R.drawable.ic_launcher);//TODO:pic
     		item.put("items_time",cursor.getLong(timeColumnIndex));
     		item.put("items_purpose",cursor.getString(purposeColumnIndex));
     		item.put("items_price", new DecimalFormat("0.00").format(cursor.getFloat(priceColumnIndex)));

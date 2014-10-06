@@ -16,4 +16,13 @@
 	<string name="items_time">time</string>
 	<string name="items_purpose">purpose</string>
 	<string name="items_price">price</string>
+	
+	<string name="time">Time</string>
+	<string name="price">Price</string>
+	<string name="purpose">Purpose</string>
+	<string name="way">Way</string>
+	<string name="cash">Cash</string>
+	<string name="card">Card</string>
+	<string name="alipay">Alipay</string>
+	<string name="borrow">Borrow</string>
 </resources>
