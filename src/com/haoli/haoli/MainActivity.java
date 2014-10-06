@@ -1,27 +1,21 @@
 package com.haoli.haoli;
 
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 
@@ -70,38 +64,11 @@ import android.widget.TextView;
 
         switch (item.getItemId()) {
         case R.id.action_add:
-        	LayoutInflater inflater = this.getLayoutInflater();
-        	final View view = (View) inflater.inflate(R.layout.dialog_add, null);
-        	EditText dialog_add_time=(EditText)view.findViewById(R.id.dialog_add_time);
-        	dialog_add_time.setText(new SimpleDateFormat("yyyyMMddHHmm").format(new Date()));
-        	AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        	builder.setTitle(R.string.dialog_title);
-        	builder.setView(view);
-        	builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					//insert data to database
-					EditText dialog_add_time = (EditText)view.findViewById(R.id.dialog_add_time);
-					EditText dialog_add_price = (EditText)view.findViewById(R.id.dialog_add_price);
-					EditText dialog_add_purpose = (EditText)view.findViewById(R.id.dialog_add_purpose);
-					EditText dialog_add_way = (EditText)view.findViewById(R.id.dialog_add_way);
-		        	String time = dialog_add_time.getText().toString();
-		        	String price = dialog_add_price.getText().toString();
-		        	String purpose = dialog_add_purpose.getText().toString();
-		        	String way = dialog_add_way.getText().toString();
-		        	
-					insertitems(time,price,purpose,way);
-					
-					Cursor query = book_db.getReadableDatabase().rawQuery("select * from book_table", null);
-			    	updatelist(query);
-			    	showsum(query);
-			    	query.close();
-				}
-			});
-        	builder.setNegativeButton(android.R.string.cancel,null);
-        	AlertDialog alert = builder.create();
-        	alert.show();
-        	
+        	//call edit activity
+        	Intent intent = new Intent();
+        	intent.setClass(MainActivity.this,EditActivity.class);
+        	intent.putExtra("mode", MODE_NEW);
+        	startActivityForResult(intent,1);
         	
         	return true;
         case R.id.action_settings:  
@@ -113,11 +80,7 @@ import android.widget.TextView;
 	    	query.close();
         	return true;
         case R.id.action_refresh:
-        	Intent intent = new Intent();
-        	intent.setClass(MainActivity.this,EditActivity.class);
-        	intent.putExtra("mode", MODE_NEW);
-        	//startActivity(intent);
-        	startActivityForResult(intent,1);
+
         	return true;
         default:
         	return super.onOptionsItemSelected(item);	
@@ -127,10 +90,21 @@ import android.widget.TextView;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     	super.onActivityResult(requestCode, resultCode, data);
-    	if(requestCode == RESULT_CANCELED) {
+    	if(requestCode != 1)
+    		return;
+    	if(resultCode == RESULT_CANCELED) {
+    		Toast.makeText(this, "didn't recive", Toast.LENGTH_SHORT).show();
     		return;
     	}
-    	//TODO: deal with Results
+    	else if(resultCode == RESULT_OK) {
+    		Toast.makeText(this, "recive", Toast.LENGTH_SHORT).show();
+    		insertitems(data.getStringExtra("time"),data.getStringExtra("price"),data.getStringExtra("purpose"),data.getStringExtra("way"));
+    		Cursor query = book_db.getReadableDatabase().rawQuery("select * from book_table", null);
+	    	updatelist(query);
+	    	showsum(query);
+	    	query.close();
+    		return;
+    	}
     }
     
     private void insertitems(String time,String price,String purpose, String way) {

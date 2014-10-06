@@ -84,6 +84,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginLeft="16dp"
        		android:layout_marginRight="16dp"
+       		android:layout_marginBottom="4dp"
             android:text="@string/purpose"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     
@@ -106,49 +107,56 @@
             android:text="@string/way"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="vertical">
 
-        <LinearLayout
-        	android:layout_width="fill_parent"
-        	android:layout_height="wrap_content"
-        	android:layout_marginLeft="0dp"
-     		android:layout_marginRight="4dp"
-        	android:orientation="horizontal">
-        <RadioButton
-            android:id="@+id/radioButton_cash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-     		android:layout_marginRight="4dp"
-            android:text="@string/cash" />
-        <RadioButton
-            android:id="@+id/radioButton_card"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-     		android:layout_marginRight="4dp"
-            android:text="@string/card" />
-        <RadioButton
-            android:id="@+id/radioButton_alipay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="4dp"
-     		android:layout_marginRight="4dp"
-            android:text="@string/alipay" />
-        </LinearLayout>
-       
-        <RadioButton
-            android:id="@+id/radioButton_borrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-     		android:layout_marginRight="4dp"
-            android:text="@string/borrow" />
-    </LinearLayout>
-    
+	<RadioGroup
+	    android:id="@+id/ways_group"
+	 	android:layout_width="fill_parent"
+	 	android:layout_height="wrap_content"
+	 	android:layout_marginLeft="16dp"
+	 	android:layout_marginTop="4dp"
+	 	android:layout_marginBottom="16dp"
+	 	android:layout_marginRight="16dp"
+	 	android:orientation="horizontal">
+        
+		<!--<LinearLayout
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:orientation="horizontal"
+		    android:layout_marginLeft="0dp"
+		    android:layout_marginRight="0dp"> -->
+		    
+		<RadioButton
+		     android:id="@+id/radioButton_cash"
+		     android:layout_width="wrap_content"
+		     android:layout_height="wrap_content"
+		     android:layout_marginLeft="0dp"
+			 android:layout_marginRight="4dp"
+		     android:text="@string/cash" />
+		
+		
+		<RadioButton
+		     android:id="@+id/radioButton_card"
+		     android:layout_width="wrap_content"
+		     android:layout_height="wrap_content"
+		     android:layout_marginLeft="4dp"
+			 android:layout_marginRight="4dp"
+		     android:text="@string/card" />
+		
+		 <RadioButton
+		     android:id="@+id/radioButton_alipay"
+		     android:layout_width="wrap_content"
+		     android:layout_height="wrap_content"
+		     android:layout_marginLeft="4dp"
+			 android:layout_marginRight="4dp"
+		     android:text="@string/alipay"/>
+		 <!--  </LinearLayout>-->
+		 
+		 <RadioButton
+		     android:id="@+id/radioButton_borrow"
+		     android:layout_width="wrap_content"
+		     android:layout_height="wrap_content"
+		     android:layout_marginLeft="4dp"
+			 android:layout_marginRight="0dp"
+		     android:text="@string/borrow" />
+	 </RadioGroup>
 </LinearLayout>
