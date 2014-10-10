@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="256dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+	<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="4dp"
+            android:text="@string/price"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/dialog_edit_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1.09"
+            android:gravity="right"
+            android:text="0.00"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </LinearLayout>
+
+	<TableLayout
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="16dp"
+	    android:layout_marginRight ="16dp"
+	    android:layout_marginTop="4dp"
+	    android:layout_marginBottom="16dp"
+	    android:layout_gravity = "center"
+	    android:layout_weight = "1">
+
+	    <TableRow
+	        android:id="@+id/tableRow1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" 
+	        android:layout_marginBottom="4dp">
+
+	        <TextView
+	            android:id="@+id/number7"
+	            android:layout_width="50dp"
+	            android:layout_height="30dp"
+			    android:layout_marginRight ="4dp"
+			    android:gravity="center"
+	            android:text="7"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	        <TextView
+	            android:id="@+id/number8"
+	            android:layout_width="50dp"
+	            android:layout_height="30dp"
+	            android:layout_marginLeft="4dp"
+			    android:layout_marginRight ="4dp"
+			    android:gravity="center"
+	            android:text="8"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	        <TextView
+	            android:id="@+id/number9"
+	            android:layout_width="50dp"
+	            android:layout_height="30dp"
+	            android:layout_marginLeft="4dp"
+			    android:layout_marginRight ="4dp"
+			    android:gravity="center"
+	            android:text="9"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	        <TextView
+	            android:id="@+id/button_del"
+	            android:layout_width="50dp"
+	            android:layout_height="30dp"
+	            android:layout_marginLeft="4dp"
+	            android:gravity="center"
+	            android:text="DEL"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	        
+	    </TableRow>
+
+	    <TableRow
+	        android:id="@+id/tableRow2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" 
+	        android:layout_marginTop="4dp"
+	        android:layout_marginBottom="4dp">
+
+	        <TextView
+	            android:id="@+id/number4"
+	            android:layout_width="50dp"
+	            android:layout_height="30dp"
+			    android:layout_marginRight ="4dp"
+			    android:gravity="center"
+	            android:text="4"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	        <TextView
+	            android:id="@+id/number5"
+	            android:layout_width="50dp"
+	            android:layout_height="30dp"
+	            android:layout_marginLeft="4dp"
+			    android:layout_marginRight ="4dp"
+			    android:gravity="center"
+	            android:text="5"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	        <TextView
+	            android:id="@+id/number6"
+	            android:layout_width="50dp"
+	            android:layout_height="30dp"
+	            android:layout_marginLeft="4dp"
+			    android:layout_marginRight ="4dp"
+			    android:gravity="center"
+	            android:text="6"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	        <TextView
+	            android:id="@+id/number00"
+	            android:layout_width="50dp"
+	            android:layout_height="30dp"
+	            android:layout_marginLeft="4dp"
+	            android:gravity="center"
+	            android:text="00"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	    </TableRow>
+
+	    <TableRow
+	        android:id="@+id/tableRow3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" 
+	        android:layout_marginTop="4dp">
+
+	        <TextView
+	            android:id="@+id/number1"
+	            android:layout_width="50dp"
+	            android:layout_height="30dp"
+			    android:layout_marginRight ="4dp"
+			    android:gravity="center"
+	            android:text="1"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	        <TextView
+	            android:id="@+id/number2"
+	            android:layout_width="50dp"
+	            android:layout_height="30dp"
+	            android:layout_marginLeft="4dp"
+			    android:layout_marginRight ="4dp"
+			    android:gravity="center"
+	            android:text="2"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	        <TextView
+	            android:id="@+id/number3"
+	            android:layout_width="50dp"
+	            android:layout_height="30dp"
+	            android:layout_marginLeft="4dp"
+			    android:layout_marginRight ="4dp"
+			    android:gravity="center"
+	            android:text="3"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+	        <TextView
+	            android:id="@+id/number0"
+	            android:layout_width="50dp"
+	            android:layout_height="30dp"
+	            android:layout_marginLeft="4dp"
+	            android:gravity="center"
+	            android:text="0"
+	            android:textAppearance="?android:attr/textAppearanceMedium" />
+	    </TableRow>
+	</TableLayout>
+    
+</LinearLayout>

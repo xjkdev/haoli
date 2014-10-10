@@ -19,4 +19,6 @@
 	<string name="card">Card</string>
 	<string name="alipay">Alipay</string>
 	<string name="borrow">Borrow</string>
+	
+	<string name="dialog_add_price_title">Edit Price</string>
 </resources>

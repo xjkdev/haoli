@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <string android:id="@+id/string1" android:layout_width="wrap_content" android:layout_height="wrap_content" name="app_name">毫厘</string>
-    <string android:layout_width="wrap_content" android:id="@+id/string1" android:layout_height="wrap_content" name="hello_world">你好，世界</string>
-    <string android:id="@+id/string1" android:layout_height="wrap_content" android:layout_width="wrap_content" name="action_settings">设置</string>
-    <string android:layout_height="wrap_content" android:id="@+id/string1" android:layout_width="wrap_content" name="action_add">增加</string>
-    <string android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/string1" name="action_refresh">刷新</string>
-    <string android:layout_height="wrap_content" android:id="@+id/string1" android:layout_width="wrap_content" name="desc">desc</string>
-    <string android:layout_height="wrap_content" android:id="@+id/string1" android:layout_width="wrap_content" name="items_time">时间</string>
-    <string android:id="@+id/string1" android:layout_height="wrap_content" android:layout_width="wrap_content" name="items_purpose">目的</string>
-    <string android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/string1" name="items_price">金额</string>
-    <string android:layout_height="wrap_content" android:id="@+id/string1" android:layout_width="wrap_content" name="time">时间</string>
-    <string android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/string1" name="price">金额</string>
-    <string android:id="@+id/string1" android:layout_height="wrap_content" android:layout_width="wrap_content" name="purpose">目的</string>
-    <string android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/string1" name="way">方式</string>
-    <string android:id="@+id/string1" android:layout_height="wrap_content" android:layout_width="wrap_content" name="cash">现金</string>
-    <string android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/string1" name="card">银行卡</string>
-    <string android:id="@+id/string1" android:layout_width="wrap_content" android:layout_height="wrap_content" name="alipay">支付宝</string>
-    <string android:layout_width="wrap_content" android:id="@+id/string1" android:layout_height="wrap_content" name="borrow">借贷</string>
+    <string name="app_name">毫厘</string>
+    <string name="hello_world">你好，世界</string>
+    <string name="action_settings">设置</string>
+    <string name="action_add">增加</string>
+    <string name="action_refresh">刷新</string>
+    <string name="desc">desc</string>
+    <string name="items_time">时间</string>
+    <string name="items_purpose">目的</string>
+    <string name="items_price">金额</string>
+    <string name="time">时间</string>
+    <string name="price">金额</string>
+    <string name="purpose">目的</string>
+    <string name="way">方式</string>
+    <string name="cash">现金</string>
+    <string name="card">银行卡</string>
+    <string name="alipay">支付宝</string>
+    <string name="borrow">借贷</string>
     
+    <string name="dialog_add_price_title">修改价格</string>
 </resources>
