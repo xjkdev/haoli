@@ -146,7 +146,6 @@ public class EditActivity extends Activity {
 			edit_price.setText(new DecimalFormat("0.00").format(0.00));
 			show_dialog_add_price(0.00);
 			//TODO:initialize ListView
-			//TODO:Price setting dialog
 			
 		}
 		//TODO:edit mode
@@ -345,6 +344,7 @@ public class EditActivity extends Activity {
 		tochange.setText(new DecimalFormat("0.00").format(before));
 	}
 	
+<<<<<<< HEAD
 	public final double deletenum (double before) {
 		return (double) ((long)(before*10)/100.0);
 	}
@@ -393,5 +393,7 @@ public class EditActivity extends Activity {
 				false);
 		dialog.show();
 	}
+=======
+>>>>>>> master
 	
 }
