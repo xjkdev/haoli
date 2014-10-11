@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 
 
-@SuppressLint("SimpleDateFormat") public class MainActivity extends Activity {
+public class MainActivity extends Activity {
 	
 	//private View dialog_add_layout;
 	private BookDatabaseHelper book_db;
