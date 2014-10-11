@@ -129,7 +129,6 @@ public class EditActivity extends Activity {
 			edit_price.setText("0.00");
 			show_dialog_add_price(0.00);
 			//TODO:initialize ListView
-			//TODO:Price setting dialog
 			
 		}
 		//TODO:edit mode
@@ -320,4 +319,6 @@ public class EditActivity extends Activity {
 		}
 		tochange.setText( new DecimalFormat("0.00").format(before));
 	}
+	
+	
 }
