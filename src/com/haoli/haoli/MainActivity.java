@@ -1,5 +1,6 @@
 package com.haoli.haoli;
 
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -97,6 +98,8 @@ import android.widget.Toast;
     	}
     	else if(resultCode == RESULT_OK) {
     		Toast.makeText(this, data.getStringExtra("way"), Toast.LENGTH_SHORT).show();
+    		Toast.makeText(this, data.getStringExtra("time"), Toast.LENGTH_SHORT).show();
+    		
     		insertitems(data.getStringExtra("time"),data.getStringExtra("price"),data.getStringExtra("purpose"),data.getStringExtra("way"));
     		Cursor query = book_db.getReadableDatabase().rawQuery("select * from book_table", null);
 	    	updatelist(query);
@@ -115,11 +118,11 @@ import android.widget.Toast;
     	double sum =0.0;
     	int priceColumnIndex = cursor.getColumnIndex("price");
     	if(cursor.moveToFirst())
-    		sum += cursor.getFloat(priceColumnIndex);
+    		sum += cursor.getDouble(priceColumnIndex);
     	while(cursor.moveToNext()){
-    		sum += cursor.getFloat(priceColumnIndex);
+    		sum += cursor.getDouble(priceColumnIndex);
     	}    	
-    	sumlabel.setText(new DecimalFormat("0.00").format(sum));
+    	sumlabel.setText(new DecimalFormat("#0.##").format(sum));
     	return sum;
     }
     
@@ -127,14 +130,27 @@ import android.widget.Toast;
     	int priceColumnIndex = cursor.getColumnIndex("price");
     	int timeColumnIndex = cursor.getColumnIndex("time");
     	int purposeColumnIndex = cursor.getColumnIndex("purpose");
+    	final DecimalFormat format = new DecimalFormat();    	
+    	format.setMaximumFractionDigits(2);
+    	format.setMinimumFractionDigits(2);
+    	format.setGroupingSize(3);
+    	format.setRoundingMode(RoundingMode.FLOOR);
     	//int wayColumnIndex = cursor.getColumnIndex("purpose");
     	ArrayList<Map<String,Object>> mitems = new ArrayList<Map<String,Object>>();
-    	while(cursor.moveToNext()){
+    	if(cursor.moveToLast()){
     		Map<String,Object> item = new HashMap<String,Object>();
     		item.put("items_way_img", R.drawable.ic_launcher);//TODO:pic
     		item.put("items_time",cursor.getLong(timeColumnIndex));
     		item.put("items_purpose",cursor.getString(purposeColumnIndex));
-    		item.put("items_price", new DecimalFormat("0.00").format(cursor.getFloat(priceColumnIndex)));
+    		item.put("items_price", format.format(cursor.getDouble((priceColumnIndex))));
+    		mitems.add(item);
+    	}    	
+    	while(cursor.moveToPrevious()){
+    		Map<String,Object> item = new HashMap<String,Object>();
+    		item.put("items_way_img", R.drawable.ic_launcher);//TODO:pic
+    		item.put("items_time",cursor.getLong(timeColumnIndex));
+    		item.put("items_purpose",cursor.getString(purposeColumnIndex));
+    		item.put("items_price", format.format(cursor.getDouble(priceColumnIndex)));
     		mitems.add(item);
     	}
     	SimpleAdapter adapter = new SimpleAdapter(this,mitems,R.layout.items,

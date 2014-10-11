@@ -18,5 +18,5 @@
     <string name="alipay">支付宝</string>
     <string name="borrow">借贷</string>
     
-    <string name="dialog_add_price_title">修改价格</string>
+    <string name="dialog_add_price_title">修改金额</string>
 </resources>
