@@ -50,9 +50,6 @@ public class MainActivity extends Activity {
     	updatelist(query);
     	showsum(query);
     	query.close();
-    	
-    	ImageView testview = (ImageView) findViewById(R.id.imageView1);
-    	testview.setImageBitmap(draw_way(R.drawable.ic_launcher,255,255,255,0));
     }
 
     
