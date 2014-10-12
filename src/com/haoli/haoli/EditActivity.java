@@ -1,5 +1,6 @@
 package com.haoli.haoli;
 
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -9,6 +10,10 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.TimePickerDialog;
+import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,12 +22,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.widget.DatePicker;
 //import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 //import android.widget.TextView;
 //import android.widget.ListView;
@@ -43,8 +50,8 @@ public class EditActivity extends Activity {
 	final int MODE_NEW = 1;
 	final String format_date_toread = "yyyy/MM/dd";
 	final String format_time_toread = "hh:mm";
-	final String format_date_tostore = "yyyyMMdd";
-	final String format_time_tostore = "hhmm";
+	//final String format_date_tostore = "yyyyMMdd";
+	//final String format_time_tostore = "hhmm";
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -116,17 +123,27 @@ public class EditActivity extends Activity {
 			}
 		});
 		
-		//((TextView) findViewById(R.id.dialog_edit_price_hint)).setOnClickListener(new OnClickListener(){
-		//	@Override
-		//	public void onClick(View v) {
-			//	show_dialog_add_price(0.00);
-			//}
-		//});
+		((TextView) findViewById(R.id.dialog_edit_price_hint)).setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View v) {
+				show_dialog_add_price(0.00);
+			}
+		});
+		
+		edit_date.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				try {
+					dialog_edit_date ();
+				} catch (ParseException e){;}
+			}
+		});
+		
 		
 		if(mode == 1) {
 			edit_date.setText(new SimpleDateFormat(format_date_toread).format(new Date()));
 			edit_time.setText(new SimpleDateFormat(format_time_toread).format(new Date()));
-			edit_price.setText("0.00");
+			edit_price.setText(new DecimalFormat("0.00").format(0.00));
 			show_dialog_add_price(0.00);
 			//TODO:initialize ListView
 			
@@ -135,33 +152,14 @@ public class EditActivity extends Activity {
 		
 	}
 	
-	public void onWayButtonClicked(View view) {
-		this.ischecked = ((RadioButton)view).isChecked();
-		
-		if(this.ischecked) {
-			switch(view.getId()){
-			case R.id.radioButton_cash:
-				chosenway="cash";
-				break;
-			case R.id.radioButton_card:
-				chosenway="card";
-				break;
-			case R.id.radioButton_alipay:
-				chosenway="alipay";
-				break;
-			case R.id.radioButton_borrow:
-				chosenway="borrow";//TODO:borrow from who?
-				break;
-			
-			}
-			
-		}
-	}
-	
 	public void passintent() {
 		if(ischecked){
 			Intent result = new Intent();
-			result.putExtra("time",new SimpleDateFormat(format_date_tostore+format_time_tostore).format(new Date()));//TODO:changetime
+			String date = edit_date.getText().toString();
+			date=date.replaceAll("/", "");
+			String time = edit_time.getText().toString();
+			time = time.replace(":", "");
+			result.putExtra("time",date+time);
 			result.putExtra("price", edit_price.getText().toString());
 			result.putExtra("purpose", "undef");
 			result.putExtra("way", chosenway);
@@ -277,7 +275,6 @@ public class EditActivity extends Activity {
 			}
 		});
 		
-		//dialog_edit_price.setText(new DecimalFormat("0.00").format(Default));
 		dialog_edit_price.setText(edit_price.getText());
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.dialog_add_price_title);
@@ -305,20 +302,72 @@ public class EditActivity extends Activity {
 		} catch (ParseException e) {
 			before = 0.00;
 		}
-		if(before < 99999.99) {
-		if(num != 10 && num != -1)
+		if(num != 10 && num != -1) {
 			before = before * 10 + num*0.01;
-		else if(num == 10)
+			if(before > 999999.99)
+				before=deletenum(before);
+		}
+		else if(num == 10) {
 			before *= 100;
+			if(before > 999999.99)
+				before=deletenum(deletenum(before));
 		}
 		if(num == -1) {
-			before = (double) ((long)(before*10)/100.0);
+			before = deletenum(before);
 		}
 		if(num == -2) {
 			before = 0.00;
 		}
-		tochange.setText( new DecimalFormat("0.00").format(before));
+		tochange.setText(new DecimalFormat("0.00").format(before));
 	}
 	
+	public final double deletenum (double before) {
+		return (double) ((long)(before*10)/100.0);
+	}
+	
+	public void dialog_edit_date () throws ParseException {
+		Date date =new Date();
+		
+		DatePickerDialog dialog = new DatePickerDialog(this,
+				new OnDateSetListener() {			
+			@Override
+			public void onDateSet(DatePicker view, int year, int month, int day) {
+				Date date =new Date();
+				int now_year=9999,now_month=13,now_day=32;
+				try {
+					now_year = new DecimalFormat("0000").parse(new SimpleDateFormat("yyyy").format(date)).intValue();
+					now_month = new DecimalFormat("00").parse(new SimpleDateFormat("MM").format(date)).intValue()-1;
+					now_day = new DecimalFormat("00").parse(new SimpleDateFormat("dd").format(date)).intValue();
+				} catch (ParseException e) {;}
+				if(year > now_year || month > now_month || day > now_day) {
+					Toast.makeText(EditActivity.this, "I believe you can't see what future will be. ", Toast.LENGTH_SHORT).show();
+					return;
+				}
+				edit_date.setText(new DecimalFormat("0000").format(year) + '/' +  new DecimalFormat("00").format(month+1) +'/' + new DecimalFormat("00").format(day));
+			}			
+		},
+		new DecimalFormat("0000").parse(new SimpleDateFormat("yyyy").format(date)).intValue(),
+		new DecimalFormat("00").parse(new SimpleDateFormat("MM").format(date)).intValue()-1,
+		new DecimalFormat("00").parse(new SimpleDateFormat("dd").format(date)).intValue());
+		dialog.show();		
+	}
+	
+	public void dialog_edit_time () throws ParseException {
+		Date date = new Date();
+		TimePickerDialog dialog = new TimePickerDialog(
+				this,
+				new OnTimeSetListener() {
+
+					@Override
+					public void onTimeSet(TimePicker arg0, int hour, int minute) {
+						edit_date.setText(new DecimalFormat("00").format(hour) + ':' +  new DecimalFormat("00").format(minute)); 
+					}
+					
+				},
+				new DecimalFormat("00").parse(new SimpleDateFormat("hh").format(date)).intValue(),
+				new DecimalFormat("00").parse(new SimpleDateFormat("mm").format(date)).intValue(),
+				false);
+		dialog.show();
+	}
 	
 }
