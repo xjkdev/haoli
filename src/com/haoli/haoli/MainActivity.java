@@ -6,17 +6,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.RectF;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -105,8 +101,7 @@ public class MainActivity extends Activity {
     		return;
     	if(resultCode == RESULT_CANCELED) {
     		return;
-    	}
-    	else if(resultCode == RESULT_OK) {
+    	} else if(resultCode == RESULT_OK) {
     		Toast.makeText(this, data.getStringExtra("way"), Toast.LENGTH_SHORT).show();
     		
     		insertitems(data.getStringExtra("time"),data.getStringExtra("price"),data.getStringExtra("purpose"),data.getStringExtra("way"));

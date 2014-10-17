@@ -4,7 +4,9 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
@@ -23,6 +25,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.DatePicker;
+import android.widget.ArrayAdapter;
 //import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -31,8 +34,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-//import android.widget.TextView;
-//import android.widget.ListView;
+import android.widget.ListView;
 
 @SuppressLint("SimpleDateFormat")
 public class EditActivity extends Activity {
@@ -41,7 +43,7 @@ public class EditActivity extends Activity {
 	private TextView edit_time;
 	private TextView edit_price;
 	private RadioGroup ways_group;
-	//private ListView list_purpose;
+	private ListView list_purpose;
 	private Intent intent;	
 	private int mode;
 	private String chosenway;
@@ -72,7 +74,7 @@ public class EditActivity extends Activity {
 		edit_time = (TextView)findViewById(R.id.edit_time);
 		edit_price = (TextView)findViewById(R.id.edit_price);
 		ways_group = (RadioGroup)findViewById(R.id.ways_group); 
-		//list_purpose = (ListView)findViewById(R.id.list_purpose);
+		list_purpose = (ListView)findViewById(R.id.list_purpose);
 		intent = getIntent();
 		this.mode = intent.getIntExtra("mode", 1);
 		this.ischecked = false;
@@ -86,6 +88,14 @@ public class EditActivity extends Activity {
                 finish();
             }
         });
+		
+	
+		List<String> purpose = new ArrayList<String>();
+		purpose.add("a");
+		purpose.add("b");
+		purpose_adapter adapter = new purpose_adapter(this, purpose);
+		list_purpose.setAdapter(adapter);
+		
 		
 		action_ok.setOnClickListener(new OnClickListener() {
 			@Override
@@ -165,9 +175,9 @@ public class EditActivity extends Activity {
 			result.putExtra("way", chosenway);
 			setResult(RESULT_OK,result);
 			finish();
-		}
-		else
+		} else {
 			 Toast.makeText(this, "Unable to finish", Toast.LENGTH_SHORT).show();
+		}
 			
 	}
 	
