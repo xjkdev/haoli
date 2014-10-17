@@ -21,4 +21,9 @@
 	<string name="borrow">Borrow</string>
 	
 	<string name="dialog_add_price_title">Edit Price</string>
+	<string name="food">Food</string>
+	<string name="transport">Transport</string>
+	<string name="entertain">Entertainment</string>
+	<string name="Else">Else</string>
+	
 </resources>

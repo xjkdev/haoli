@@ -19,4 +19,8 @@
     <string name="borrow">借贷</string>
     
     <string name="dialog_add_price_title">修改价格</string>
+    <string name="food">饮食</string>
+    <string name="transport">交通</string>
+    <string name="entertain">娱乐</string>
+    <string name="Else">其他</string>
 </resources>

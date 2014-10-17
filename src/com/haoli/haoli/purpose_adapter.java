@@ -15,7 +15,8 @@ import android.widget.TextView;
 public class purpose_adapter extends BaseAdapter {
 	private Context context;
 	private List<String> purpose_List;
-	HashMap<String,Boolean>states = new HashMap<String,Boolean>();
+	public HashMap<String,Boolean>states = new HashMap<String,Boolean>();
+	public String chosen;
 	
 	public purpose_adapter (Context context, List<String> purpose_List) {
 		this.context = context;
@@ -62,6 +63,7 @@ public class purpose_adapter extends BaseAdapter {
 					states.put(key, false);
 				}
 				states.put(String.valueOf(position), radio.isChecked());
+				chosen=String.valueOf(position);
 				purpose_adapter.this.notifyDataSetChanged();
 			}
 		});

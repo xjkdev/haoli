@@ -103,7 +103,7 @@ public class MainActivity extends Activity {
     		return;
     	} else if(resultCode == RESULT_OK) {
     		Toast.makeText(this, data.getStringExtra("way"), Toast.LENGTH_SHORT).show();
-    		
+    		Toast.makeText(this, data.getStringExtra("purpose"), Toast.LENGTH_SHORT).show();    		
     		insertitems(data.getStringExtra("time"),data.getStringExtra("price"),data.getStringExtra("purpose"),data.getStringExtra("way"));
     		Cursor query = book_db.getReadableDatabase().rawQuery("select * from book_table", null);
 	    	updatelist(query);
@@ -146,8 +146,9 @@ public class MainActivity extends Activity {
     		do {
     			Map<String,Object> item = new HashMap<String,Object>();
     			String way = cursor.getString(wayColumnIndex);
+    			String purpose = cursor.getString(purposeColumnIndex);
     			int drawable_id = R.drawable.cash;
-    			int a = 0xff,r = 0x56,g = 0x77,b = 0xfc;
+    			int a = 0xff,r = 0x60,g = 0x7d,b = 0x8b;
     			if(way.compareTo("alipay") == 0)
     				drawable_id = R.drawable.alipay;
     			else if (way.compareTo("cash") == 0)
@@ -155,7 +156,20 @@ public class MainActivity extends Activity {
     			else if (way.compareTo("card") == 0)
     				drawable_id = R.drawable.card;
     			
-        		item.put("items_way_img", draw_way(drawable_id,a,r,g,b));//TODO:pic
+    			if(purpose.compareTo(getString(R.string.food))==0) {
+    				r = 0x25; g = 0x9b; b = 0x24;
+    			}
+    			else if(purpose.compareTo(getString(R.string.transport))==0) {
+    				r = 0x56; g = 0x77; b = 0xfc;
+    			}
+    			else if(purpose.compareTo(getString(R.string.entertain))==0) {
+    				r = 0xff; g = 0xc1; b = 0x07;
+    			}
+    			else if(purpose.compareTo(getString(R.string.Else))==0) {
+    				r = 0x60; g = 0x7d; b = 0x8b;
+    			}
+    			//TODO:mutilanguage
+        		item.put("items_way_img", draw_way(drawable_id,a,r,g,b));
         		item.put("items_time",cursor.getLong(timeColumnIndex));
         		item.put("items_purpose",cursor.getString(purposeColumnIndex));
         		item.put("items_price", format.format(cursor.getDouble(priceColumnIndex)));

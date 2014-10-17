@@ -7,14 +7,18 @@
 
     <TextView 
         android:id = "@+id/purpuse_text"
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity ="left"
+        android:layout_gravity = "left|center_vertical"
+        android:layout_weight="2"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceLarge"
         />
     <RadioButton
         android:id="@+id/purpose_radiobtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="" />
+        android:text = "" 
+        android:layout_gravity = "center_vertical"/>
 
 </LinearLayout>

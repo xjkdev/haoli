@@ -41,4 +41,13 @@
         <item name="android:ellipsize">none</item>
         <item name="android:padding">4dp</item>
     </style>
+    
+   	<style name="CustomActivityTheme" parent="@android:style/Theme.Holo.Light">   
+    	<item name="android:actionBarStyle">@style/MyActionBar</item>         
+	</style>
+	
+   	<style name="MyActionBar" parent="@android:style/Widget.Holo.ActionBar">   
+     	<item name="android:background">#3f51b5</item>
+	</style>
+	
 </resources>

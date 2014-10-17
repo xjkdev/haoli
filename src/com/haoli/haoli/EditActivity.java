@@ -1,6 +1,5 @@
 package com.haoli.haoli;
 
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,16 +24,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.DatePicker;
-import android.widget.ArrayAdapter;
-//import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import android.widget.ListView;
+
 
 @SuppressLint("SimpleDateFormat")
 public class EditActivity extends Activity {
@@ -46,7 +44,9 @@ public class EditActivity extends Activity {
 	private ListView list_purpose;
 	private Intent intent;	
 	private int mode;
-	private String chosenway;
+	private String chosen_way;
+	private String chosen_purpose;
+	private List<String> purposes;
 	protected boolean ischecked;
 	
 	final int MODE_NEW = 1;
@@ -89,14 +89,6 @@ public class EditActivity extends Activity {
             }
         });
 		
-	
-		List<String> purpose = new ArrayList<String>();
-		purpose.add("a");
-		purpose.add("b");
-		purpose_adapter adapter = new purpose_adapter(this, purpose);
-		list_purpose.setAdapter(adapter);
-		
-		
 		action_ok.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -110,16 +102,16 @@ public class EditActivity extends Activity {
 				ischecked = true;
 				switch(checkedId){
 				case R.id.radioButton_cash:
-					chosenway="cash";
+					chosen_way="cash";
 					break;
 				case R.id.radioButton_card:
-					chosenway="card";
+					chosen_way="card";
 					break;
 				case R.id.radioButton_alipay:
-					chosenway="alipay";
+					chosen_way="alipay";
 					break;
 				case R.id.radioButton_borrow:
-					chosenway="borrow";//TODO:borrow from who?
+					chosen_way="borrow";//TODO:borrow from who?
 					break;				
 				}
 				return;
@@ -148,15 +140,21 @@ public class EditActivity extends Activity {
 				} catch (ParseException e){;}
 			}
 		});
-		
+			
+		purposes = new ArrayList<String>();
+		purposes.add(this.getString(R.string.food));
+		purposes.add(this.getString(R.string.transport));
+		purposes.add(this.getString(R.string.entertain));
+		purposes.add(this.getString(R.string.Else));//TODO:d
+		purpose_adapter list_adapter;
+		list_adapter = new purpose_adapter(this, purposes);
+		list_purpose.setAdapter(list_adapter);
 		
 		if(mode == 1) {
 			edit_date.setText(new SimpleDateFormat(format_date_toread).format(new Date()));
 			edit_time.setText(new SimpleDateFormat(format_time_toread).format(new Date()));
 			edit_price.setText(new DecimalFormat("0.00").format(0.00));
-			show_dialog_add_price(0.00);
-			//TODO:initialize ListView
-			
+			show_dialog_add_price(0.00);			
 		}
 		//TODO:edit mode
 		
@@ -169,10 +167,18 @@ public class EditActivity extends Activity {
 			date=date.replaceAll("/", "");
 			String time = edit_time.getText().toString();
 			time = time.replace(":", "");
+			
+			for(int i=0, j=list_purpose.getCount();i<j;i++) {
+				View child = list_purpose.getChildAt(i);
+				RadioButton btn = (RadioButton) child.findViewById(R.id.purpose_radiobtn);
+				if(btn.isChecked())
+					chosen_purpose = purposes.get(i);
+			}
+			
 			result.putExtra("time",date+time);
 			result.putExtra("price", edit_price.getText().toString());
-			result.putExtra("purpose", "undef");
-			result.putExtra("way", chosenway);
+			result.putExtra("purpose", chosen_purpose);
+			result.putExtra("way", chosen_way);
 			setResult(RESULT_OK,result);
 			finish();
 		} else {
